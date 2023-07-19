@@ -1,16 +1,16 @@
 package com.pachico.arithmetic.adapter.in.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
+import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-@Builder
 public class OperationRequest {
-    public BigInteger x;
-    public BigInteger y;
+
+    @NotNull(message = " x cannot be null")
+    public BigDecimal x;
+    @NotNull(message = " y cannot be null")
+    public BigDecimal y;
 }
