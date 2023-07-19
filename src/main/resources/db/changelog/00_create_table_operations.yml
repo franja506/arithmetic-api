@@ -1,0 +1,43 @@
+databaseChangeLog:
+  - changeSet:
+      id: create_transactions_table
+      author: Francisco Gonzalez
+      changes:
+        - createTable:
+            tableName: operations
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: number1
+                  type: DECIMAL
+              - column:
+                  name: number2
+                  type: DECIMAL
+              - column:
+                  name: percentage
+                  type: DECIMAL
+              - column:
+                  name: result
+                  type: DECIMAL
+                  constraints:
+                    nullable: true
+              - column:
+                  name: datetime
+                  type: DATETIME
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: add_index_to_operations_table
+      author: Francisco Gonzalez
+      changes:
+        - createIndex:
+            indexName: idx_datetime
+            tableName: operations
+            columns:
+              - column:
+                  name: datetime
