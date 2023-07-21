@@ -20,10 +20,9 @@ public class Operation {
 
     @Id
     private UUID id;
-    private Boolean successful;
     private BigDecimal number1;
     private BigDecimal number2;
     private BigDecimal percentage;
     private BigDecimal result;
-    private OffsetDateTime dateTime;
+    private OffsetDateTime datetime;
 }

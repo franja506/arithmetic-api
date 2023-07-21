@@ -33,7 +33,7 @@ public class OperationsController {
     @ResponseStatus(OK)
     @Operation(summary = "Operacion que suma dos digitos y le aplica el porcentaje de la suma de los mismos.")
     public BigDecimal calculate(@Valid @RequestBody OperationRequest request) {
-        log.info("Estoy ingresando en el servicio ");
+        log.info("Estoy ingresando en el servicio /calculate con el request: {}", request);
         return getSumPercentageService.execute(request.x, request.y);
     }
 
@@ -41,7 +41,7 @@ public class OperationsController {
     @ResponseStatus(OK)
     @Operation(summary = "Operacion que devuelve el historial de operaciones")
     public Page<com.pachico.arithmetic.domain.Operation> operations(
-            @RequestParam(required = false, defaultValue = "1") Integer page,
+            @RequestParam(required = false, defaultValue = "0") Integer page,
             @RequestParam(required = false, defaultValue = "50") Integer size
     ) {
         log.info("Estoy ingresando en el servicio ");
