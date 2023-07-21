@@ -38,5 +38,5 @@ franjagonca:
     local-url: http://localhost:8080
     prod-url: https://localhost:8080
   rest:
-    api-key: PMAK-64b9f65cd0210e003196227b-d2e0d1e27c903ca8ece3e2fb19f9990b67
+    api-key: ${API_KEY}
     base-url: https://bf2af314-c73f-416a-8e93-26c479a00ecc.mock.pstmn.io
