@@ -1,4 +1,4 @@
-package com.pachico.arithmetic.shared;
+package com.pachico.arithmetic.shared.openApi;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import org.springframework.beans.factory.annotation.Value;
