@@ -13,17 +13,17 @@ databaseChangeLog:
                     primaryKey: true
                     nullable: false
               - column:
-                  name: number1
-                  type: DECIMAL
+                  name: method
+                  type: VARCHAR
               - column:
-                  name: number2
-                  type: DECIMAL
+                  name: uri
+                  type: VARCHAR
               - column:
-                  name: percentage
-                  type: DECIMAL
+                  name: request
+                  type: VARCHAR
               - column:
-                  name: result
-                  type: DECIMAL
+                  name: response
+                  type: VARCHAR
                   constraints:
                     nullable: true
               - column:
