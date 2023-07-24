@@ -7,10 +7,17 @@ spring:
     consumer:
       enable-auto-commit: false
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring:
+          json:
+            value:
+              default:
+                type: 'com.pachico.arithmetic.domain.Operation'
+
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
   datasource:
     url: jdbc:postgresql://localhost:5432/arithmetic
     driver-class-name: org.postgresql.Driver
@@ -40,3 +47,11 @@ franjagonca:
   rest:
     api-key: ${API_KEY}
     base-url: https://bf2af314-c73f-416a-8e93-26c479a00ecc.mock.pstmn.io
+
+event:
+  topic:
+    operation:
+      created: created.operation
+  group:
+    persist:
+      operation: persist.operation
