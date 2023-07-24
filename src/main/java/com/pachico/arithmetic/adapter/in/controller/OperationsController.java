@@ -1,8 +1,8 @@
-package com.pachico.arithmetic.adapter.in;
+package com.pachico.arithmetic.adapter.in.controller;
 
-import com.pachico.arithmetic.adapter.in.mapper.ToOperationResponseMapper;
-import com.pachico.arithmetic.adapter.in.model.OperationRequest;
-import com.pachico.arithmetic.adapter.in.model.OperationResponse;
+import com.pachico.arithmetic.adapter.in.controller.mapper.ToOperationResponseMapper;
+import com.pachico.arithmetic.adapter.in.controller.model.OperationRequest;
+import com.pachico.arithmetic.adapter.in.controller.model.OperationResponse;
 import com.pachico.arithmetic.application.port.in.FindOperationsPortIn;
 import com.pachico.arithmetic.application.port.in.GetSumPercentagePortIn;
 import com.pachico.arithmetic.domain.Pagination;

@@ -1,6 +1,6 @@
-package com.pachico.arithmetic.adapter.in.mapper;
+package com.pachico.arithmetic.adapter.in.controller.mapper;
 
-import com.pachico.arithmetic.adapter.in.model.OperationResponse;
+import com.pachico.arithmetic.adapter.in.controller.model.OperationResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.pachico.arithmetic.adapter.in.model;
+package com.pachico.arithmetic.adapter.in.controller.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
