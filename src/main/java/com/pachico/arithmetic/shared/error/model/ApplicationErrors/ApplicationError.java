@@ -14,4 +14,3 @@ public abstract sealed class ApplicationError permits MessageNotReadable, Method
     private String message;
     private Throwable origin;
 }
-

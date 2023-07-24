@@ -5,7 +5,7 @@ import com.pachico.arithmetic.domain.Operation;
 import org.springframework.stereotype.Component;
 
 @Component
-public class OperationProducer implements OperationProducerPortOut {
+public class PersistOperationProducer implements OperationProducerPortOut {
     @Override
     public void produce(Operation operation) {
 

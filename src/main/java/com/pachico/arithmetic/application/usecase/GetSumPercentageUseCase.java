@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 @Component
 @Slf4j
@@ -35,6 +36,6 @@ public class GetSumPercentageUseCase implements GetSumPercentagePortIn {
     }
 
     private BigDecimal applyPercentage(BigDecimal num, BigDecimal percentage) {
-        return MathUtils.mapToPercentage(percentage).multiply(num);
+        return MathUtils.mapToPercentage(percentage).multiply(num).setScale(4, RoundingMode.HALF_UP);
     }
 }
