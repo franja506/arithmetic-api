@@ -39,6 +39,7 @@ dependencies {
 	// BBDD
 	runtimeOnly 'org.postgresql:postgresql'
 	implementation("org.liquibase:liquibase-core")
+	testRuntimeOnly("com.h2database:h2")
 
 	// Kafka
 //  implementation 'org.springframework.kafka:spring-kafka'

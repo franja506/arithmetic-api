@@ -1,0 +1,18 @@
+spring:
+  liquibase:
+    enabled: false
+  datasource:
+    url: jdbc:h2:mem:mydb
+    username: sa
+    password: password
+    driverClassName: org.h2.Driver
+  jpa:
+    spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
+
+franjagonca:
+  openapi:
+    local-url: http://localhost:8080
+    prod-url: https://example.com
+  rest:
+    api-key: api_key
+    base-url: http://localhost:8080
