@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.retry.annotation.Backoff;
+import org.springframework.retry.annotation.Recover;
 import org.springframework.retry.annotation.Retryable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.MultiValueMap;
@@ -28,13 +29,15 @@ public class PercentageClient implements RetrievePercentagePortOut {
     @Value("${franjagonca.rest.base-url}")
     private String base_url;
 
+    private BigDecimal lastPercentage;
+
     @Autowired
     public PercentageClient(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
 
     @Override
-    @Retryable(backoff = @Backoff(delay = 1000), retryFor = RuntimeException.class)
+    @Retryable(backoff = @Backoff(delay = 500), retryFor = RuntimeException.class, recover = "recoverLastPercentage")
     public BigDecimal execute(BigDecimal x, BigDecimal y) {
        BigDecimal result;
        try {
@@ -43,8 +46,9 @@ public class PercentageClient implements RetrievePercentagePortOut {
            val percentage = restTemplate.postForObject(retrieveURL(),entity, PercentageResponse.class);
 
            result =  percentage.getPercentage();
+           setLastPercentage(result);
        } catch (Exception e) {
-           log.error("Hubo un error invocando la api percentage");
+           log.error("Hubo un error invocando la api percentage. Cause: {}", e.getLocalizedMessage());
            throw new RuntimeException();
        }
 
@@ -67,5 +71,16 @@ public class PercentageClient implements RetrievePercentagePortOut {
         return headers;
     }
 
+    @Recover
+    public BigDecimal recoverLastPercentage(RuntimeException e, BigDecimal x, BigDecimal y){
+        if (this.lastPercentage != null)
+            return this.lastPercentage;
+        else
+            // TODO: Generar exception particular
+            throw new RuntimeException();
+    }
 
+    private void setLastPercentage(BigDecimal value) {
+        this.lastPercentage = value;
+    }
 }
