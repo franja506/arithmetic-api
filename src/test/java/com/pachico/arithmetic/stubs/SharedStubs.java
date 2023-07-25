@@ -4,5 +4,5 @@ import java.math.BigDecimal;
 
 public class SharedStubs {
 
-    public static final BigDecimal percentage = BigDecimal.valueOf(0.5);
+    public static final BigDecimal percentage = BigDecimal.valueOf(25.00);
 }

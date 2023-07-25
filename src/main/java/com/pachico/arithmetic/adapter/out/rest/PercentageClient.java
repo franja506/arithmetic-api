@@ -3,6 +3,8 @@ package com.pachico.arithmetic.adapter.out.rest;
 import com.pachico.arithmetic.adapter.out.rest.model.PercentageRequest;
 import com.pachico.arithmetic.adapter.out.rest.model.PercentageResponse;
 import com.pachico.arithmetic.application.port.out.RetrievePercentagePortOut;
+import com.pachico.arithmetic.shared.error.model.PercentageApiNotAvailableException;
+import com.pachico.arithmetic.shared.error.model.PercentageApiRetryException;
 import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +39,7 @@ public class PercentageClient implements RetrievePercentagePortOut {
     }
 
     @Override
-    @Retryable(backoff = @Backoff(delay = 500), retryFor = RuntimeException.class, recover = "recoverLastPercentage")
+    @Retryable(backoff = @Backoff(delay = 500), retryFor = PercentageApiRetryException.class, recover = "recoverLastPercentage")
     public BigDecimal execute(BigDecimal x, BigDecimal y) {
        BigDecimal result;
        try {
@@ -48,8 +50,8 @@ public class PercentageClient implements RetrievePercentagePortOut {
            result =  percentage.getPercentage();
            setLastPercentage(result);
        } catch (Exception e) {
-           log.error("Hubo un error invocando la api percentage. Cause: {}", e.getLocalizedMessage());
-           throw new RuntimeException();
+           log.error("Percentage api respond with exception. Cause: {}", e.getLocalizedMessage());
+           throw new PercentageApiRetryException();
        }
 
        return result;
@@ -76,8 +78,7 @@ public class PercentageClient implements RetrievePercentagePortOut {
         if (this.lastPercentage != null)
             return this.lastPercentage;
         else
-            // TODO: Generar exception particular
-            throw new RuntimeException();
+            throw new PercentageApiNotAvailableException();
     }
 
     private void setLastPercentage(BigDecimal value) {
