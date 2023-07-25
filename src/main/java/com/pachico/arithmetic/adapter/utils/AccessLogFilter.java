@@ -62,7 +62,6 @@ public class AccessLogFilter extends OncePerRequestFilter {
 
         log.info("response body = {}", responseBody);
 
-        // Finally remember to respond to the client with the cached data.
         resp.copyBodyToResponse();
     }
 }
