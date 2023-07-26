@@ -29,17 +29,19 @@ public class PercentageClient implements RetrievePercentagePortOut {
     private final RestTemplate restTemplate;
 
     @Value("${franjagonca.rest.base-url}")
-    private String base_url;
+    private String baseUrl;
 
     private BigDecimal lastPercentage;
 
     @Autowired
-    public PercentageClient(RestTemplate restTemplate) {
+    public PercentageClient(RestTemplate restTemplate, @Value("${franjagonca.rest.base-url}") String baseUrl) {
         this.restTemplate = restTemplate;
+        this.baseUrl = baseUrl;
     }
 
     @Override
-    @Retryable(backoff = @Backoff(delay = 500), retryFor = PercentageApiRetryException.class, recover = "recoverLastPercentage")
+    @Retryable(backoff = @Backoff(delay = 500), retryFor = PercentageApiRetryException.class,
+            recover = "recoverLastPercentage")
     public BigDecimal execute(BigDecimal x, BigDecimal y) {
        BigDecimal result;
        try {
@@ -59,7 +61,7 @@ public class PercentageClient implements RetrievePercentagePortOut {
 
     private String retrieveURL() {
         String PATH = "/percentage";
-        return base_url + PATH;
+        return baseUrl + PATH;
     }
 
     private PercentageRequest createRequest(BigDecimal x, BigDecimal y) {

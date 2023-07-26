@@ -5,7 +5,6 @@ import com.pachico.arithmetic.stubs.SharedStubs;
 import com.pachico.arithmetic.stubs.WebStubs;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpEntity;
@@ -22,12 +21,13 @@ public class PercentageClientTest {
     @Mock
     private RestTemplate mockRestTemplate;
 
-    @InjectMocks
     private PercentageClient percentageClient;
 
     @BeforeEach
     public void setUp() {
+        String baseUrl = "base_url";
         MockitoAnnotations.openMocks(this);
+        percentageClient = new PercentageClient(mockRestTemplate, baseUrl);
     }
 
     @Test
@@ -41,10 +41,10 @@ public class PercentageClientTest {
         when(mockRestTemplate.postForObject(anyString(), any(HttpEntity.class), eq(PercentageResponse.class)))
                 .thenReturn(WebStubs.getPercentageResponse());
 
-        // Then
+        // When
         BigDecimal result = percentageClient.execute(x, y);
 
-        // When
+        // Then
         assertEquals(mockPercentage, result);
 
         verify(mockRestTemplate).postForObject(anyString(), any(HttpEntity.class), eq(PercentageResponse.class));
