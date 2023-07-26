@@ -33,24 +33,39 @@ spring:
   liquibase:
     change-log: classpath:db/liquibase-changelog.yml
     enabled: true
-  cache:
-    cache-names:
-      - rate-limit-buckets
-    caffeine:
-      spec: maximumSize=100000, expireAfterAccess=1800s
-bucket4j:
-  enabled: true
-  filters:
-    - cache-name: rate-limit-buckets
-      url: .*
-      http-response-body: "{ \"title\": \"Too Many Requests\",\"status\": 429,
-      \"detail\": \"You have exhausted your API Request Quota\" }"
-      rate-limits:
-        - bandwidths:
-            - capacity: 3
-              time: 60
-              unit: seconds
-              refill-speed: interval
+
+resilience4j.ratelimiter:
+  metrics:
+    enabled: true
+  instances:
+    basicExample:
+      limit-for-period: 3
+      limit-refresh-period: 60s
+      timeout-duration: 0s
+      allow-health-indicator-to-fail: true
+      subscribe-for-events: true
+      event-consumer-buffer-size: 50
+
+
+#management:
+#  health:
+#    ratelimiters:
+#      enabled: true
+#resilience4j.ratelimiter.metrics.enabled: true
+#resilience4j.ratelimiter:
+#  configs:
+#    default:
+#      registerHealthIndicator: false
+#      limitForPeriod: 10
+#      limitRefreshPeriod: 1s
+#      timeoutDuration: 0
+#      eventConsumerBufferSize: 100
+#  instances:
+#    rateLimiterApi:
+#      limitForPeriod: 1
+#      limitRefreshPeriod: 1m
+#      timeoutDuration: 0s
+
 springdoc:
   swagger-ui:
     path: /swagger-ui

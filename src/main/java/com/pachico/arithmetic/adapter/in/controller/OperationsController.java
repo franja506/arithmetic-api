@@ -6,6 +6,7 @@ import com.pachico.arithmetic.adapter.in.controller.model.OperationResponse;
 import com.pachico.arithmetic.application.port.in.FindOperationsPortIn;
 import com.pachico.arithmetic.application.port.in.GetSumPercentagePortIn;
 import com.pachico.arithmetic.domain.Pagination;
+import io.github.resilience4j.ratelimiter.annotation.RateLimiter;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -53,7 +54,9 @@ public class OperationsController {
             @ApiResponse(responseCode = "400", description = "BAD REQUEST",
                     content = { @Content(schema = @Schema(implementation = ProblemDetail.class),
                                          mediaType = MediaType.APPLICATION_JSON_VALUE) }),
+            @ApiResponse(responseCode = "429", description = "")
     })
+    @RateLimiter(name = "basicExample")
     public OperationResponse calculate(@Valid @RequestBody OperationRequest request) {
         log.info("Estoy ingresando en el servicio /calculate con el request: {}", request);
         BigDecimal result = getSumPercentageService.execute(request.number1, request.number2);
@@ -64,6 +67,7 @@ public class OperationsController {
     @GetMapping(path = "/operations")
     @ResponseStatus(OK)
     @Operation(summary = "Operacion que devuelve el historial de operaciones")
+    @RateLimiter(name = "basicExample")
     public Page<com.pachico.arithmetic.domain.Operation> operations(
             @RequestParam(required = false, defaultValue = "0")
             @PositiveOrZero Integer page,
