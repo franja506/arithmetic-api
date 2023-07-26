@@ -37,17 +37,20 @@ spring:
     cache-names:
       - rate-limit-buckets
     caffeine:
-      spec: maximumSize=100000,expireAfterAccess=3600s
+      spec: maximumSize=100000, expireAfterAccess=1800s
 bucket4j:
   enabled: true
   filters:
     - cache-name: rate-limit-buckets
       url: .*
+      http-response-body: "{ \"title\": \"Too Many Requests\",\"status\": 429,
+      \"detail\": \"You have exhausted your API Request Quota\" }"
       rate-limits:
         - bandwidths:
-            - capacity: 1
+            - capacity: 3
               time: 60
               unit: seconds
+              refill-speed: interval
 springdoc:
   swagger-ui:
     path: /swagger-ui
