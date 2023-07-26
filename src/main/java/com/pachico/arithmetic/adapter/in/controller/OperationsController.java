@@ -6,7 +6,6 @@ import com.pachico.arithmetic.adapter.in.controller.model.OperationResponse;
 import com.pachico.arithmetic.application.port.in.FindOperationsPortIn;
 import com.pachico.arithmetic.application.port.in.GetSumPercentagePortIn;
 import com.pachico.arithmetic.domain.Pagination;
-import com.pachico.arithmetic.shared.error.model.ApiErrorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -18,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
+import org.springframework.http.ProblemDetail;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -51,7 +51,7 @@ public class OperationsController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200"),
             @ApiResponse(responseCode = "400", description = "BAD REQUEST",
-                    content = { @Content(schema = @Schema(implementation = ApiErrorResponse.class),
+                    content = { @Content(schema = @Schema(implementation = ProblemDetail.class),
                                          mediaType = MediaType.APPLICATION_JSON_VALUE) }),
     })
     public OperationResponse calculate(@Valid @RequestBody OperationRequest request) {
