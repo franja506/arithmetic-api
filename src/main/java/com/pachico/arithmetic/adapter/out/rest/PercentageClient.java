@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.retry.annotation.Backoff;
@@ -42,6 +43,7 @@ public class PercentageClient implements RetrievePercentagePortOut {
     @Override
     @Retryable(backoff = @Backoff(delay = 500), retryFor = PercentageApiRetryException.class,
             recover = "recoverLastPercentage")
+    @Cacheable("percentages")
     public BigDecimal execute(BigDecimal x, BigDecimal y) {
        BigDecimal result;
        try {
