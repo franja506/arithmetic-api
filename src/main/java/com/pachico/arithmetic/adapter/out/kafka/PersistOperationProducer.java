@@ -13,12 +13,13 @@ import org.springframework.stereotype.Component;
 public class PersistOperationProducer implements OperationProducerPortOut {
 
     private final KafkaTemplate<String, Operation> kafkaTemplate;
-    @Value("${event.topic.operation.created}")
-    private String topic;
+    private final String topic;
 
     @Autowired
-    public PersistOperationProducer(KafkaTemplate<String, Operation> kafkaTemplate){
+    public PersistOperationProducer(KafkaTemplate<String, Operation> kafkaTemplate,
+                                    @Value("${event.topic.operation.created}") String topic){
         this.kafkaTemplate = kafkaTemplate;
+        this.topic = topic;
     }
 
     @Override
@@ -26,10 +27,8 @@ public class PersistOperationProducer implements OperationProducerPortOut {
         try {
             kafkaTemplate.send(topic, operation);
             log.info("created operation event produced: {}", operation);
-
         } catch (Exception e) {
-
-            log.error("Error with produce createdPayment event: {}", operation);
+            log.error("Error with send to created.operation topic. Cause: {}", operation);
         }
     }
 }
