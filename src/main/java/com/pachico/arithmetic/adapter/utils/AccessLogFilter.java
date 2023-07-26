@@ -43,7 +43,7 @@ public class AccessLogFilter extends OncePerRequestFilter {
 
         // Get Cache
         String requestBody =  new String(req.getContentAsByteArray(), StandardCharsets.UTF_8);
-        String responseBody = new String(resp.getContentAsByteArray(), StandardCharsets.UTF_8);
+        String responseBody = resp.getStatus() == 200 ? new String(resp.getContentAsByteArray(), StandardCharsets.UTF_8):null;
         String method = req.getMethod();
         String uri = req.getRequestURI();
 
