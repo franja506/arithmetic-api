@@ -9,13 +9,11 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.kafka.support.Acknowledgment;
-import org.springframework.test.context.ActiveProfiles;
 
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 
-@ActiveProfiles("test")
 public class PersistOperationConsumerTest {
 
     @Mock
