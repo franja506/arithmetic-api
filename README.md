@@ -19,11 +19,45 @@ API para prueba de concepto de las tecnologías utilizadas
 - spring-boot 3.1.1
 - [postgresql](https://www.postgresql.org/)
 - [apache-kafka](https://kafka.apache.org/)
+- [liquibase](https://www.liquibase.org/)
+- [docker](https://www.docker.com/)
+  - [docker-compose](https://docs.docker.com/compose/)
 
 
 ### How to Run
 
+#### Prerequisites
+
+Posicionarse en la carpeta devTools y ejecutar el [docker-compose](devTools/docker-compose.yml). 
+Esto levanta un postgresql y un kafka local.
+
+
 #### Config
+- ##### datasource
+  Configurar la conexión a la base de datos
+  ```yaml
+  datasource:
+    url: ${POSTGRES_URL}
+    driver-class-name: org.postgresql.Driver
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASS}
+  ```
+
+  En _Run/Debug Configurations_ -> _Build and run_ -> _VM Options_ agregar
+    `POSTGRES_URL=jdbc:postgresql://localhost:5432/arithmetic` 
+    `POSTGRES_USER=franjagonca`
+    `POSTGRES_PASS=franjagonca`
+
+- ##### brokers
+  Configurar la conexión a kafka
+  ```yaml
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS}
+  ```
+
+  En _Run/Debug Configurations_ -> _Build and run_ -> _VM Options_ agregar
+  `KAFKA_SERVERS=localhost:9092`
+
 
 #### Build
 

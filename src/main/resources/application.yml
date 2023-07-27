@@ -1,6 +1,6 @@
 spring:
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: ${KAFKA_SERVERS}
     listener:
       ack-mode: "manual_immediate"
       missing-topics-fatal: false
@@ -18,10 +18,10 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
   datasource:
-    url: jdbc:postgresql://localhost:5432/arithmetic
+    url: ${POSTGRES_URL}
     driver-class-name: org.postgresql.Driver
-    username: franjagonca
-    password: franjagonca
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASS}
   jpa:
     properties:
       hibernate:
