@@ -75,6 +75,18 @@ public class OperationsController {
             summary = "Retrieve all operations to invoke",
             description = "Retrieve result of operations history off all paths"
     )
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200"),
+            @ApiResponse(responseCode = "400", description = "BAD REQUEST",
+                    content = { @Content(schema = @Schema(implementation = ProblemDetail.class),
+                            mediaType = MediaType.APPLICATION_JSON_VALUE) }),
+            @ApiResponse(responseCode = "429", description = "TOO MANY REQUEST",
+                    content = { @Content(schema = @Schema(implementation = ProblemDetail.class),
+                            mediaType = MediaType.APPLICATION_JSON_VALUE) }),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR",
+                    content = { @Content(schema = @Schema(implementation = ProblemDetail.class),
+                            mediaType = MediaType.APPLICATION_JSON_VALUE) })
+    })
     @RateLimiter(name = "basicExample")
     public Page<com.pachico.arithmetic.domain.Operation> operations(
             @RequestParam(required = false, defaultValue = "0")
