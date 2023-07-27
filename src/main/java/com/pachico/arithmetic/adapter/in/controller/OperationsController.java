@@ -54,7 +54,12 @@ public class OperationsController {
             @ApiResponse(responseCode = "400", description = "BAD REQUEST",
                     content = { @Content(schema = @Schema(implementation = ProblemDetail.class),
                                          mediaType = MediaType.APPLICATION_JSON_VALUE) }),
-            @ApiResponse(responseCode = "429", description = "")
+            @ApiResponse(responseCode = "429", description = "TOO MANY REQUEST",
+                    content = { @Content(schema = @Schema(implementation = ProblemDetail.class),
+                            mediaType = MediaType.APPLICATION_JSON_VALUE) }),
+            @ApiResponse(responseCode = "500", description = "INTERNAL SERVER ERROR",
+                    content = { @Content(schema = @Schema(implementation = ProblemDetail.class),
+                            mediaType = MediaType.APPLICATION_JSON_VALUE) })
     })
     @RateLimiter(name = "basicExample")
     public OperationResponse calculate(@Valid @RequestBody OperationRequest request) {
@@ -66,7 +71,10 @@ public class OperationsController {
 
     @GetMapping(path = "/operations")
     @ResponseStatus(OK)
-    @Operation(summary = "Operacion que devuelve el historial de operaciones")
+    @Operation(
+            summary = "Retrieve all operations to invoke",
+            description = "Retrieve result of operations history off all paths"
+    )
     @RateLimiter(name = "basicExample")
     public Page<com.pachico.arithmetic.domain.Operation> operations(
             @RequestParam(required = false, defaultValue = "0")
@@ -77,6 +85,4 @@ public class OperationsController {
         log.info("Estoy ingresando en el servicio /operations");
         return operationsPortIn.execute(new Pagination(page, size));
     }
-
-
 }

@@ -18,7 +18,8 @@ spring:
               default:
                 type: 'com.pachico.arithmetic.domain.Operation'
   liquibase:
-    enabled: false
+    enabled: true
+    change-log: classpath:db/liquibase-changelog.yml
   datasource:
     url: jdbc:h2:mem:mydb
     username: sa
@@ -42,3 +43,11 @@ event:
   group:
     persist:
       operation: persist.operation
+
+resilience4j.ratelimiter:
+  metrics:
+    enabled: true
+  instances:
+    hola:
+      limit-for-period: 1
+      limit-refresh-period: 60s

@@ -8,14 +8,9 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 public class RestTemplateConfiguration {
-
-    @Value("${franjagonca.rest.api-key}")
-    private String API_KEY;
-
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return  builder
-                .defaultHeader("x-api-key",API_KEY)
                 .build();
     }
 }

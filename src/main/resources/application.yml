@@ -46,26 +46,6 @@ resilience4j.ratelimiter:
       subscribe-for-events: true
       event-consumer-buffer-size: 50
 
-
-#management:
-#  health:
-#    ratelimiters:
-#      enabled: true
-#resilience4j.ratelimiter.metrics.enabled: true
-#resilience4j.ratelimiter:
-#  configs:
-#    default:
-#      registerHealthIndicator: false
-#      limitForPeriod: 10
-#      limitRefreshPeriod: 1s
-#      timeoutDuration: 0
-#      eventConsumerBufferSize: 100
-#  instances:
-#    rateLimiterApi:
-#      limitForPeriod: 1
-#      limitRefreshPeriod: 1m
-#      timeoutDuration: 0s
-
 springdoc:
   swagger-ui:
     path: /swagger-ui
@@ -77,7 +57,6 @@ franjagonca:
     local-url: http://localhost:8080
     prod-url: https://localhost:8080
   rest:
-    api-key: ${API_KEY}
     base-url: https://bf2af314-c73f-416a-8e93-26c479a00ecc.mock.pstmn.io
 
 event:
