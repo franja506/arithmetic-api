@@ -70,13 +70,13 @@ $ ./gradlew build
 #### Build Docker Images
 
 Ejecuta éste comando para generar una imagen de docker del proyecto. Dentro del directorio raiz del 
-proyecto ejecutar el siguiente script 
+proyecto ejecutar el siguiente script (cambiar la version de acuerdo a la actual del proyecto)
 
 ```bash
 $ sudo docker build --build-arg appName=arithmetic-api --build-arg version=1.0.0 --tag arithmetic-api .
 ```
 
-cambiar la version de acuerdo a la actual del proyecto.
+
 
 #### Run
 
