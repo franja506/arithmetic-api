@@ -16,9 +16,8 @@ public class CachingConfig {
 
     @Bean
     public Caffeine caffeineConfig() {
-        // TODO: Setear los 30 minutos
         return Caffeine.newBuilder()
-                .expireAfterWrite(10, TimeUnit.SECONDS);
+                .expireAfterWrite(30, TimeUnit.MINUTES);
     }
 
     @Bean
