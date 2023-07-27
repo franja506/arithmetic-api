@@ -4,8 +4,7 @@ ARG appName
 ARG version
 
 WORKDIR /app
-COPY target/$appName-$version.jar /app/app.jar
-
+COPY ./build/libs/$appName-$version.jar /app/app.jar
 EXPOSE 8080
 ENV JAVA_OPTS "-XX:+UseContainerSupport"
-CMD ["java", "-jar", "app.jar"]
+ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS  -jar /app/app.jar"]
