@@ -1,13 +1,12 @@
 
 # arithmetic API
 [![Swagger](https://img.shields.io/badge/Swagger-85EA2D?style=for-the-badge&logo=Swagger&logoColor=white)](https://localhost:8080/swagger-ui/index.html)
-[![Postman](https://img.shields.io/badge/Postman-FF6C37?style=for-the-badge&logo=Postman&logoColor=white)](devTools/postman)
 
 ## Description:
 API para prueba de concepto de las tecnologías utilizadas
 
 ## Index:
-- [Stack](#stack)
+- [Stack](#stack️)
 - [How to Run](#how-to-run)
     - [Prerequisites](#prerequisites)
     - [Config](#config) 
@@ -66,7 +65,7 @@ Esto levanta un postgresql y un kafka local.
   `KAFKA_SERVERS=localhost:9092`
 
 
-#### Build  
+#### Build
 Ejecuta éste comando para instalar las dependencias y buildear el proyecto:
   
   ```bash
