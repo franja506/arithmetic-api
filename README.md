@@ -9,10 +9,16 @@ API para prueba de concepto de las tecnologías utilizadas
 ## Index:
 - [Stack](#stack)
 - [How to Run](#how-to-run)
-    - [Config](#config)
+    - [Prerequisites](#prerequisites)
+    - [Config](#config) 
     - [Build](#build)
     - [Run](#run)
     - [Unit Tests](#unit-tests)
+- [Create Docker Images](#create-docker-images) 
+  - [Build Docker Images](#build-docker-images)
+  - [Tag your Docker image](#tag-your-docker-image)
+  - [Login to Your Docker Hub](#login-to-your-docker-hub)
+  - [Push the Docker image](#push-the-docker-image)
 
 ### Stack 🛠️
 - java 20
@@ -22,6 +28,7 @@ API para prueba de concepto de las tecnologías utilizadas
 - [liquibase](https://www.liquibase.org/)
 - [docker](https://www.docker.com/)
   - [docker-compose](https://docs.docker.com/compose/)
+  
 
 
 ### How to Run
@@ -59,23 +66,12 @@ Esto levanta un postgresql y un kafka local.
   `KAFKA_SERVERS=localhost:9092`
 
 
-#### Build
-
+#### Build  
 Ejecuta éste comando para instalar las dependencias y buildear el proyecto:
-
-```bash
-$ ./gradlew build
-```
-
-#### Build Docker Images
-
-Ejecuta éste comando para generar una imagen de docker del proyecto. Dentro del directorio raiz del 
-proyecto ejecutar el siguiente script (cambiar la version de acuerdo a la actual del proyecto)
-
-```bash
-$ sudo docker build --build-arg appName=arithmetic-api --build-arg version=1.0.0 --tag arithmetic-api .
-```
-
+  
+  ```bash
+  $ ./gradlew build
+  ```
 
 
 #### Run
@@ -94,3 +90,34 @@ Para correr los tests unitarios
 ```bash
 $ ./gradlew test
 ```
+
+### Create Docker Images
+
+#### Build Docker Images
+ Dentro del directorio raiz del
+proyecto ejecutar el siguiente script (cambiar la version de acuerdo a la actual del proyecto)
+
+```bash
+$ sudo docker build --build-arg appName=arithmetic-api --build-arg version=1.0.0 --tag arithmetic-api .
+```
+
+#### Tag your Docker image
+Antes de enviar la imagen a Docker Hub, etiquetarla con el nombre de repositorio adecuado. Reemplace 
+your-dockerhub-username con su nombre de usuario de Docker Hub.
+
+```bash
+$ docker tag arithmetic-api:latest your-dockerhub-username/arithmetic-api:latest
+```
+
+#### Login to Your Docker Hub
+
+```bash
+$ docker login
+```
+
+#### Push the Docker image
+
+```bash
+$ docker push your-dockerhub-username/arithmetic-api:latest
+```
+
